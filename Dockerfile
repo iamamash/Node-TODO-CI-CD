@@ -2,7 +2,7 @@
 FROM node:12.2.0-alpine as build
 
 # Set working directory
-WORKDIR /app
+WORKDIR app
 
 # Copy package files and install dependencies
 COPY package*.json ./
@@ -16,6 +16,9 @@ RUN npm run test
 
 # Stage 2: Run the application
 FROM node:12-slim as runtime
+
+# Set working directory
+WORKDIR app
 
 # Set working directory
 COPY --from=build app/ .
