@@ -40,17 +40,17 @@ To deploy the application on Kubernetes using Minikube, follow these steps:
 1. Apply the Kubernetes configuration:
     ```bash
     kubectl apply -f K8s/
+    kubectl get all
     ```
 
-2. Forward the service port to access the application:
+2. Wait until pods are running. Then forward the service port to access the application:
     ```bash
     kubectl port-forward service/node-app-service --address 0.0.0.0 30007:80
     ```
 
 3. (Optional) To deploy `hpa.yaml`, first install [ngrok](https://ngrok.com/), then run the following commands:
     ```bash
-    minikube ip
-    ngrok http <minikube-ip>:30007
+    ngrok http $(minikube ip):30007
     ```
 
     Update the URL provided by ngrok in the `host:` field of `hpa.yaml`, and reapply it:
